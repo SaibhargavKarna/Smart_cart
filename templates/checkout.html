@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="checkout-page">
+    <div class="order-summary">
+        <!-- Order-headers -->
+        <div class="order-totals">
+            <div class="order-total">
+                <div><h3>Order Items:</h3><p>{{order.get_cart_items}}</p></div>
+                <div><h3>Order Total:</h3><p> &#8377; {{order.get_cart_total}}</p></div>
+            </div>
+            <div class="order-btns">
+                <a id="back-to-home-btn" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left-long"></i> Back to home</a>
+                <a id="cart-btn" href="{% url 'cart' %}"><i class="fa-solid fa-arrow-left-long"></i> Back to Cart</a>
+            </div>
+        </div>
+
+        <!-- Order-item-titles -->
+        <div class="order-items">
+            <div class="order-titles">
+                <div class="order-image">
+                    <h3>Image</h3>
+                </div>
+                <div class="order-name">
+                    <h3>Name</h3>
+                </div>
+                <div class="order-price">
+                    <h3>Price</h3>
+                </div>
+                <div class="order-quantity">
+                    <h3>Quantity</h3>
+                </div>
+                <div class="order-total-price">
+                    <h3>Total price</h3>
+                </div>
+            </div>
+
+            <!-- Order-items -->
+            {% for item in items %}
+            <div class="order-item">                    
+                <div class="order-image">
+                    <h3><img src="{{item.product.product_image}}" alt="img"></h3>
+                </div>
+                <div class="order-name">
+                    <h3>{{item.product.product_name|truncatechars:45}}</h3>
+                </div>
+                <div class="order-price">
+                    <h3>&#8377; {{item.product.product_price}}</h3>
+                </div>
+                <div class="order-quantity">
+                    <h3>{{item.quantity}}</h3>
+                </div>
+                <div class="order-total-price">
+                    <h3>&#8377; {{item.get_total}}</h3>
+                </div>                    
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="shipping">
+        <!-- Shipping information -->
+        <div class="shipping-info">
+            <h2>Shipping Information</h2>
+            <form action="" method="post" id="shipping-form">{% csrf_token %}
+                <input class="shipping-info-inputs" type="text" name="name" placeholder="Name" required autocomplete="off">            
+                <input class="shipping-info-inputs" type="email" name="email" placeholder="Email" required autocomplete="off">
+                <input class="shipping-info-inputs" type="text" name="address" placeholder="Address" required autocomplete="off">
+                <input class="shipping-info-inputs" type="text" name="city" placeholder="City" required autocomplete="off">
+                <input class="shipping-info-inputs" type="text" name="state" placeholder="State" required autocomplete="off">
+                <input class="shipping-info-inputs" type="text" name="pincode" placeholder="Pin code" required autocomplete="off">
+                <input class="shipping-info-inputs" type="text" name="country" placeholder="Country" required autocomplete="off">
+                <button id="shipping-info-submit" type="submit" value="Continue">Continue</button>
+            </form>
+        </div>
+
+        <!-- Payment options -->
+        <div class="payment-options hidden" id="payment-info">
+            <h2>Payment Options</h2>
+            <button id="make-payment">Make Payment</button>
+        </div>
+    </div>    
+</div>    
+
+<script>
+    
+// Checkout-page
+var shipping='{{order.shipping}}'
+var total='{{order.get_cart_total}}'
+var form=document.getElementById('shipping-form')
+
+form.addEventListener('submit',function(e){
+    e.preventDefault()
+    // console.log('Form submitted...')
+    document.getElementById('shipping-info-submit').classList.add('hidden')
+    document.getElementById('payment-info').classList.remove('hidden')
+})
+
+document.getElementById('make-payment').addEventListener('click',function(e){
+    submitFormData()
+})
+
+function submitFormData(){
+    // console.log('Payment button clicked...')
+
+    var shippingInfo={
+        'name':form.name.value,
+        'email':form.email.value,
+        'total':total,
+        'address':form.address.value,
+        'city':form.city.value,
+        'state':form.state.value,
+        'pincode':form.pincode.value,
+        'country':form.country.value,
+    }
+
+
+    var url='/process_order/'
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({'shipping':shippingInfo})
+    })
+    .then((response)=>response.json())
+    .then((data)=>{
+        console.log('Success:',data);
+        alert('Transaction completed');
+        window.location.href="{% url 'home' %}"
+    })
+}
+
+</script>
+
+{% endblock content %}
+

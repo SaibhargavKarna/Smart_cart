@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="cover-image">
+        <img src="static/images/shopping-coverpage.jpg" alt="shopping-coverage pic">
+        <div class="cover-image-msg">
+            <p>Choose Smart-Cart to Live Smart</p>
+        </div>
+    </div>
+
+    <div class="marquee-text">
+        <marquee behavior="" direction="left" scrollamount="15">Choose the brands you love..! The Festival of Offers is going to end soon...</marquee>
+    </div>
+
+    <div class="shopping-section">
+        <a href="{% url 'mobiles' %}">
+            <div class="box">
+                <h3>Mobiles</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/mobiles.jpg" alt="mobiles pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'laptops' %}">
+            <div class="box">
+                <h3>Laptops</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/laptops.jpg" alt="laptops pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'headphones' %}">
+            <div class="box">
+                <h3>Headphones</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/headphones.jpg" alt="headphones pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'tv' %}">
+            <div class="box">
+                <h3>TVs</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/TVs.jpg" alt="TVs pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'ac' %}">
+            <div class="box">
+                <h3>Air Conditioners</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/air-conditioners.jpg" alt="air-conditioners pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'washing_mc' %}">
+            <div class="box">
+                <h3>Washing machines</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/washing-machines.jpg" alt="washing-machines pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'menswear' %}">
+            <div class="box">
+                <h3>Men's wear</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/menswear.jpg" alt="menswear pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'womenswear' %}">
+            <div class="box">
+                <h3>Women's wear</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/womenswear.jpg" alt="womenswear pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'kidswear' %}">
+            <div class="box">
+                <h3>Kids wear</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/kidswear.jpg" alt="kidswear pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'watches' %}">
+            <div class="box">
+                <h3>Watches</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/watches.jpg" alt="watches pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'shoes' %}">
+            <div class="box">
+                <h3>Shoes</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/shoes.jpg" alt="shoes pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'books' %}">
+            <div class="box">
+                <h3>Books</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/books.jpg" alt="books pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'bags' %}">
+            <div class="box">
+                <h3>Bags</h3>
+                <div class="box-content">
+                    <div class="box-img">
+                        <img src="static/images/bags.jpg" alt="bags pic">
+                    </div>
+                    <p>See more...</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+{% endblock content %}

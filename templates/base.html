@@ -1,0 +1,126 @@
+<!-- Base html file for all html files -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart-Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_small.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_medium.css' %}">  
+    <link rel="stylesheet" href="{% static 'css/styles_large.css' %}">  
+    <script>
+        var user='{{request.user}}'
+    </script> 
+</head>
+<body>
+    <div class="full-page">
+        <div class="page-content">
+            <!-- Navbar -->
+            <div class="navbar">
+                <div class="nav-title">
+                    <a href="{% url 'home' %}">Smart-Cart</a>            
+                </div>
+                <div class="nav-search">
+                    <form class="nav-search" action="" method="get">
+                        <input class="search-input" name="Search-box" type="text" placeholder="Search">
+                        <div class="search-icon">
+                            <button class="search-icon" type="submit" value="Search"><i class="fa-solid fa-magnifying-glass"></i></button>  
+                        </div> 
+                    </form>                          
+                </div>
+
+                {% if request.user.is_authenticated %}
+                <div class="nav-user">                    
+                    <a href="{% url 'home' %}">{{request.user}}  <i class="fa-regular fa-user"></i></a>                    
+                </div>
+                <div class="nav-cart">
+                    <a href="{% url 'cart' %}">Cart <i class="fa-solid fa-cart-shopping"><p class="cart-items-total">{{cartItems}}</p></i></a>            
+                </div>
+                <div class="nav-user">                    
+                    <a href="{% url 'logout' %}">Logout <i class="fa-regular fa-user"></i></a>                    
+                </div>
+                {% else %}
+                <div class="nav-user">                    
+                    <a href="{% url 'login' %}">Log In <i class="fa-regular fa-user"></i></a>                    
+                </div>
+                <div class="nav-user">                    
+                    <a href="{% url 'register' %}">Sign Up <i class="fa-regular fa-user"></i></a>                    
+                </div>
+                {% endif %}                
+            </div>
+        
+            <!-- Menubar -->
+            <div class="menubar">
+                <div class="menu-item">
+                    <a href="{% url 'mobiles' %}">Mobiles</a>
+                </div>
+                <div class="menu-item">
+                    <a href="#">Electronics</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'laptops' %}">Laptops</a>
+                        <a href="{% url 'headphones' %}">Headphones</a>
+                    </div>
+                </div>        
+                <div class="menu-item">
+                    <a href="#">Home Appliances</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'tv' %}">TVs</a>
+                        <a href="{% url 'ac' %}">Air Conditioners</a>
+                        <a href="{% url 'washing_mc' %}">Washing Machines</a>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a href="#">Fashion</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'menswear' %}">Mens Wear</a>
+                        <a href="{% url 'womenswear' %}">Womens Wear</a>
+                        <a href="{% url 'kidswear' %}">Kids Wear</a>
+                        <a href="{% url 'watches' %}">Watches</a>
+                        <a href="{% url 'shoes' %}">Shoes</a>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a href="{% url 'books' %}">Books</a>
+                </div>
+                <div class="menu-item">
+                    <a href="{% url 'bags' %}">Bags</a>
+                </div>
+            </div>     
+            
+            {% if messages %}
+             <div class="messages">
+                {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endfor %}
+             </div>
+            {% endif %}
+                
+            {% block content %}
+        
+            {% endblock content %}  
+            
+        </div>  
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-items">
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'support' %}">Support</a>
+                <a href="{% url 'consumer_policy' %}">Consumer Policy</a>
+                <a href="{% url 'connect' %}">Connect with Us</a>
+                <a href="{% url 'contact' %}">Contact us</a>
+            </div>
+            
+            <div class="copyright">
+                <p>©2023,<a href="{% url 'home' %}">Smart-Cart</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>
+

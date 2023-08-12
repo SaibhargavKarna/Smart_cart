@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Including code for Applied-filters list & Sort-by options -->
+{% include 'apply-filters.html' %}
+  
+<div class="products-container">
+  <div class="filters">
+    <div class="filters-heading">
+      <h2>Filters</h2>
+      <hr>        
+    </div>
+
+    <!-- Filters-form -->
+    <form action="" method="get" id="totalForm">
+      <div class="filters-price">
+        <h3>Price Range<button type="button" class="toggle-btn" onclick="toggleFunction('priceRangeForm')"><i class="fa-solid fa-chevron-down"></i></button></h3> 
+        <div id="priceRangeForm">
+            <select name="price_min" id="price_min">
+                <option value="">Min Price</option>
+                <option value="0">0</option>
+                <option value="10000">₹10000</option>
+                <option value="20000">₹20000</option>
+                <option value="30000">₹30000</option>
+                <option value="40000">₹40000</option>
+                <option value="50000">₹50000</option>
+            </select>
+            <select name="price_max" id="price_max">
+                <option value="">Max Price</option>
+                <option value="10000">₹10000</option>
+                <option value="15000">₹15000</option>
+                <option value="20000">₹20000</option>
+                <option value="30000">₹30000</option>
+                <option value="40000">₹40000</option>
+                <option value="50000">₹50000</option>
+                <option value="">₹50000+</option>
+            </select>
+            <br>
+          </div>         
+      </div>
+      <hr>  
+
+      <div class="filters-brand">
+        <h3>Brand<button type="button" class="toggle-btn" onclick="toggleFunction('brandsForm')"><i class="fa-solid fa-chevron-down"></i></button></h3>
+        <div id="brandsForm">          
+          <input class="filtered-product"  type="checkbox" name="brand" value="SAMSUNG">
+          <label for="SAMSUNG">SAMSUNG</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="LG">
+          <label for="LG">LG</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="WHIRLPOOL">
+          <label for="WHIRLPOOL">WHIRLPOOL</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="IFB">
+          <label for="IFB">IFB</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="PANASONIC">
+          <label for="PANASONIC">PANASONIC</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="MOTOROLA">
+          <label for="MOTOROLA">MOTOROLA</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="GODREJ">
+          <label for="GODREJ">GODREJ</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="BOSCH">
+          <label for="BOSCH">BOSCH</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="THOMSON">
+          <label for="THOMSON">THOMSON</label><br>
+          <input class="filtered-product"  type="checkbox" name="brand" value="HAIER">
+          <label for="HAIER">HAIER</label>
+          <br>
+        </div>        
+      </div>
+      <hr>
+
+      <div class="filters-rating">
+        <h3>Rating<button type="button" class="toggle-btn" onclick="toggleFunction('ratingsForm')"><i class="fa-solid fa-chevron-down"></i></button></h3>
+        <div id="ratingsForm">
+            <input class="filtered-product" type="checkbox" name="rating" value="4">
+            <label for="4">4.0 - 5.0</label><br>
+            <input class="filtered-product" type="checkbox" name="rating" value="3">
+            <label for="3">3.0 - 4.0</label><br>
+            <input class="filtered-product" type="checkbox" name="rating" value="2">
+            <label for="2">2.0 - 3.0</label><br>
+            <input class="filtered-product" type="checkbox" name="rating" value="1">
+            <label for="1">1.0 - 2.0</label><br>
+            <input class="filtered-product" type="checkbox" name="rating" value="0">
+            <label for="0">0 - 1.0</label><br>
+        </div>        
+      </div>
+      <button type="submit" id="submitFilters" name="submitFilters">Apply filters</button>
+      <button type="submit" id="clearFilters" name="clearFilters">Clear filters</button>
+    </form>
+  </div>
+  
+  <!-- Products displaying code -->
+  <div class="products">             
+    {% for product in products %}
+    <div class="product">        
+        <div class="product-img">
+          <img src="{{product.product_image}}" alt="img">
+        </div>
+        <div class="product-details">
+          <div class="details-div">
+            <h2 class="product_name">{{product.product_name}}</h2>
+            <p class="product_description">{{product.product_description}}</p>
+            <p class="rating">{{product.product_rating}} <i class="fa-regular fa-star"></i></p>
+          </div>                  
+          <div class="price-cart-div">
+            <h2 class="product_price"> &#8377; {{product.product_price}}</h2>
+            <button data-product={{product.id}} data-action="add" class="addtoCart update-cart"><h4>Add to Cart</h4></button>
+          </div>                              
+        </div>         
+    </div>          
+    {% endfor %}
+  </div>
+</div> 
+
+{% endblock content %}

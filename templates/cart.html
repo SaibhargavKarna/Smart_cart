@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="cart-content">
+    <!-- Cart-headers -->
+    <div class="cart-header">
+        <div class="cart-total">
+            <div><h3>Cart Items:</h3><p>{{order.get_cart_items}}</p></div>
+            <div><h3>Cart Total:</h3><p> &#8377; {{order.get_cart_total}}</p></div>
+        </div>
+        <div class="cart-btns">
+            <a id="home-btn" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left-long"></i> Back to home</a>
+            <a id="checkout-btn" href="{% url 'checkout' %}">Checkout <i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+    </div>
+
+    <!-- Cart-items -->
+    <div class="cart-items">             
+        {% for item in items %}
+            <div class="cart-item">        
+                <div class="cart-item-img">
+                    <img src="{{item.product.product_image}}" alt="img">
+                </div>
+                <div class="cart-item-details">                        
+                    <h2 class="cart-item-name">{{item.product.product_name|truncatechars:45}}</h2>
+                    <div>
+                        <h3>Category</h3><p>{{item.product.product_category}}</p>                                
+                    </div>
+
+                    <div>
+                        <h3>Brand</h3><p>{{item.product.product_brand}}</p>
+                    </div>
+
+                    <div>
+                        <p class="cart-item-description">{{item.product.product_description}}</p>
+                    </div>                              
+                    <div>
+                        <h2 class="cart-item-price">&#8377; {{item.product.product_price}}</h2>
+                    </div>
+                    <div class="cart-change-quantity">
+                        <h3>Quantity:</h3><p data-product={{item.product.id}} data-action="remove" class="update-cart"><i class="fa-solid fa-minus"></i></p><h2>{{item.quantity}}</h2><p data-product={{item.product.id}} data-action="add" class="update-cart"> <i class="fa-solid fa-plus"></i></p>                          
+                    </div>
+                    <div>
+                        <h3>Total</h3><h2>&#8377; {{item.get_total}}</h2>
+                    </div>        
+                </div>         
+            </div>          
+        {% endfor %}
+    </div>        
+</div>
+
+{% endblock content %}
+
+  
+                                            
