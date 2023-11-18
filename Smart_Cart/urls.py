@@ -48,6 +48,8 @@ urlpatterns = [
     path('consumer_policy/',consumer_policy,name='consumer_policy'),
     path('connect/',connect,name='connect'),
     path('contact/',contact,name='contact'),
+    path('razorpay/',razorpay,name='razorpay'),
+    path('payment-status/',payment_status,name='payment-status'),
 ]
 
 

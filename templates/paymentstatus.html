@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="payment-status-container">
+    {% if status %}
+            <div class="circle-check">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Your payment was successful.</h2>
+    {% else %}
+            <div class="circle-xmark">
+                <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+            </div>
+            <h2>Your Payment is failed! Try again.</h2>
+    {% endif %}
+
+    <a href="{% url 'home' %}"  role="button">Back to Home</a>
+
+</div>
+
+{% endblock content %}
+
+    
+

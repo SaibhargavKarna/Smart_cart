@@ -887,3 +887,92 @@ a{
 .error{
   background-color: rgb(254, 68, 68);
 }
+
+
+/* payment page */
+.razorpay-container{
+  width: 40%;
+  height: 500px;
+  text-align: center;
+  margin: 50px auto;
+  padding: 50px auto;
+  background-color: aliceblue;
+  border: 1px solid skyblue;
+  border-radius: 5%;
+}
+
+.razorpay-container h2{
+  font-size: 36px;
+  margin: 50px auto;
+  padding: 50px auto;
+}
+
+.razorpay-container h3{
+  font-size: 24px;
+  margin:auto;
+  padding:auto;
+}
+
+.razorpay-container p{
+  font-size: 24px;
+  margin: auto 30px;
+  padding:auto 30px;
+}
+
+.razorpay-container button{
+  font-size: 24px;
+  margin: 50px auto;
+  padding:10px 30px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+} 
+
+#razorpay-payment-button-form{
+  text-align: center;
+}
+
+.razorpay-payment-button{
+  font-size: 24px;
+  margin: 50px auto;
+  padding:10px 30px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.payment-status-container{
+  width: 40%;
+  height: 300px;
+  text-align: center;
+  margin: 50px auto;
+  padding: 50px auto;
+  background-color: aliceblue;
+  border: 1px solid skyblue;
+  border-radius: 5%;
+}
+
+.circle-check{
+  font-size: 80px;
+  padding: 20px;
+  color: green;
+}
+
+.circle-xmark{
+  font-size: 80px;
+  padding: 20px;
+  color: red;
+}
+
+.payment-status-container h2{
+  font-size: 24px;
+  margin: 40px auto;
+}
+
+.payment-status-container a{
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: 1px solid blue;
+}

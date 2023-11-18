@@ -102,6 +102,7 @@ document.getElementById('make-payment').addEventListener('click',function(e){
     submitFormData()
 })
 
+
 function submitFormData(){
     // console.log('Payment button clicked...')
 
@@ -129,8 +130,8 @@ function submitFormData(){
     .then((response)=>response.json())
     .then((data)=>{
         console.log('Success:',data);
-        alert('Transaction completed');
-        window.location.href="{% url 'home' %}"
+        // alert('Transaction completed');
+        window.location.href="{% url 'razorpay' %}"
     })
 }
 

@@ -3,10 +3,13 @@ from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 import json
 import datetime
-from website.models import Product,Order,OrderItem,ShippingAddress
+from website.models import Product,Order,OrderItem,ShippingAddress,paymentDetails
+import razorpay
+from django.conf import settings
 
 # Create your views here.
 def home(request):
@@ -320,6 +323,7 @@ def checkout(request):
     order=data['order']
     items=data['items']
 
+
     context={'items':items,'order':order,'cartItems':cartItems}
     return render(request,'checkout.html',context)
 
@@ -362,9 +366,9 @@ def processOrder(request):
         total=float(data['shipping']['total'])
         order.transaction_id=transaction_id
 
-        if total==order.get_cart_total:
-            order.complete=True
-        order.save()
+        # if total==order.get_cart_total:
+        #     order.complete=True
+        # order.save()
 
         if order.shipping== True:
             ShippingAddress.objects.create(
@@ -442,5 +446,84 @@ def contact(request):
     context={'cartItems':cartItems}
 
     return render(request,'contact.html',context)
+
+
+#Razorpay pyment integrtion
+client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+
+def razorpay(request):
+    data=cartData(request)
+    cartItems=data['cartItems']
+    order=data['order']
+    items=data['items']
+    # context={'items':items,'order':order,'cartItems':cartItems}
+
+    if request.method=='POST':
+        name=request.user
+        amount=int(order.get_cart_total)*100
+        
+        DATA = {
+            "amount": amount,
+            "currency": "INR"
+            }
+    
+        payment_response=client.order.create(data=DATA)
+
+        order_id=payment_response['id']
+        order_status=payment_response['status']
+
+        if order_status=='created':
+            payment_details=paymentDetails(
+                name=name,
+                amount=amount,
+                order_id=order_id
+            )
+            payment_details.save()
+
+            payment_response['name']=name
+
+            # form=paymentDetailsForm(request.POST or None)
+            # return render(request,'razorpay.html',{'payment_response':payment_response,'form':form})
+            return render(request,'razorpay.html',{'payment_response':payment_response,'order':order,'cartItems':cartItems})
+    # form=paymentDetailsForm()
+    # return render(request,'razorpay.html',{'form':form})
+    return render(request,'razorpay.html',{'order':order,'cartItems':cartItems})
+
+
+
+@csrf_exempt
+def payment_status(request):
+    data=cartData(request)
+    cartItems=data['cartItems']
+    order=data['order']
+    items=data['items']
+    # context={'items':items,'order':order,'cartItems':cartItems}
+    
+    response=request.POST
+    print(response)
+    params_dict={
+        "razorpay_payment_id": response['razorpay_payment_id'],
+        "razorpay_order_id": response['razorpay_order_id'],
+        "razorpay_signature": response['razorpay_signature']
+        }
+
+    
+    try:
+        status=client.utility.verify_payment_signature(params_dict)
+        payment_details=paymentDetails.objects.get(order_id=response['razorpay_order_id'])
+        payment_details.razorpay_payment_id=response['razorpay_payment_id']
+        payment_details.paid=True
+        payment_details.save()
+
+        if payment_details.paid==True:
+            order.complete=True
+            order.save()
+        
+        cartItems=0            
+       
+        return render(request,'paymentstatus.html',{'status':True,'cartItems':cartItems})
+    
+    except:    
+        return render(request,'paymentstatus.html',{'status':False,'cartItems':cartItems})
 
 

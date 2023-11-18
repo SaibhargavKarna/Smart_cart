@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="razorpay-container">
+    <h2>Make payment here</h2>
+    
+    <form action="" method="POST"> {% csrf_token %}
+        <div class="container">
+            <div><h3>Customer Name:</h3><p>{{request.user}}</p></div><br>
+            <div><h3>Total Amount:</h3><p> &#8377; {{order.get_cart_total}}</p></div><br>
+            <button type="submit" class="btn-primary">Pay now</button><br>
+            <div><h3>Note: </h3><p>Select UPI in Razorpay for 100% Success of payments</p></div>
+            
+        </div>
+    </form>    
+</div>
+    
+    {% if payment_response %}
+
+    <div id="razorpay-payment-button-form">
+        <form action="{% url 'payment-status' %}" method="POST"> {% csrf_token %}
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_vM6jfpgM6OM74q" 
+                data-amount="{{payment_response.amount}}" 
+                data-currency="INR"
+                data-order_id="{{payment_response.id}}"
+                data-buttontext="Pay with Razorpay"
+                data-name="Karna Tech Solutions"
+                data-description="Making Software Services easy"
+                data-image="https://example.com/your_logo.jpg"
+                data-prefill.name="{{payment_response.name}}"
+                data-prefill.email="karna@gmail.com"
+                data-theme.color="#007bff"
+            ></script>
+            <input type="hidden" custom="Hidden Element" name="hidden"/>
+        </form>
+    </div>
+
+    {% endif %}
+
+{% endblock content %}
+
+    
