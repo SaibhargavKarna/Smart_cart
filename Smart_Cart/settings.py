@@ -138,5 +138,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-RAZOR_KEY_ID='rzp_test_vM6jfpgM6OM74q'
-RAZOR_KEY_SECRET='nZt5CDVAlMYbxq9hLJmOCsw2'
+# RAZOR_KEY_ID='rzp_test_vM6jfpgM6OM74q'
+# RAZOR_KEY_SECRET='nZt5CDVAlMYbxq9hLJmOCsw2'
+RAZOR_KEY_ID=os.environ.get("RAZOR_KEY_ID")
+RAZOR_KEY_SECRET=os.environ.get("RAZOR_KEY_SECRET")
