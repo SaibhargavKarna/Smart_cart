@@ -23,7 +23,7 @@
         <form action="{% url 'payment-status' %}" method="POST"> {% csrf_token %}
             <script
                 src="https://checkout.razorpay.com/v1/checkout.js"
-                data-key="rzp_test_vM6jfpgM6OM74q" 
+                data-key="{{key_id}}" 
                 data-amount="{{payment_response.amount}}" 
                 data-currency="INR"
                 data-order_id="{{payment_response.id}}"

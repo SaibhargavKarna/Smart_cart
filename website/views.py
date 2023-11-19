@@ -457,6 +457,7 @@ def razorpay(request):
     order=data['order']
     items=data['items']
     # context={'items':items,'order':order,'cartItems':cartItems}
+    key_id=settings.RAZOR_KEY_ID
 
     if request.method=='POST':
         name=request.user
@@ -484,10 +485,10 @@ def razorpay(request):
 
             # form=paymentDetailsForm(request.POST or None)
             # return render(request,'razorpay.html',{'payment_response':payment_response,'form':form})
-            return render(request,'razorpay.html',{'payment_response':payment_response,'order':order,'cartItems':cartItems})
+            return render(request,'razorpay.html',{'payment_response':payment_response,'order':order,'cartItems':cartItems,'key_id':key_id})
     # form=paymentDetailsForm()
     # return render(request,'razorpay.html',{'form':form})
-    return render(request,'razorpay.html',{'order':order,'cartItems':cartItems})
+    return render(request,'razorpay.html',{'order':order,'cartItems':cartItems,'key_id':key_id})
 
 
 
