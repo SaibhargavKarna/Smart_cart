@@ -453,7 +453,7 @@ RAZOR_KEY_ID = settings.RAZOR_KEY_ID
 RAZOR_KEY_SECRET = settings.RAZOR_KEY_SECRET
 client = razorpay.Client(auth=(RAZOR_KEY_ID, RAZOR_KEY_SECRET))
 
-
+@login_required(login_url='login')
 def razorpay(request):
     data=cartData(request)
     cartItems=data['cartItems']
@@ -494,7 +494,7 @@ def razorpay(request):
     return render(request,'razorpay.html',{'order':order,'cartItems':cartItems,'key_id':key_id})
 
 
-
+@login_required(login_url='login')
 @csrf_exempt
 def payment_status(request):
     data=cartData(request)
