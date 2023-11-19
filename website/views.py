@@ -448,8 +448,11 @@ def contact(request):
     return render(request,'contact.html',context)
 
 
-#Razorpay pyment integrtion
-client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+# Razorpay pyment integrtion
+RAZOR_KEY_ID = settings.RAZOR_KEY_ID
+RAZOR_KEY_SECRET = settings.RAZOR_KEY_SECRET
+client = razorpay.Client(auth=(RAZOR_KEY_ID, RAZOR_KEY_SECRET))
+
 
 def razorpay(request):
     data=cartData(request)
@@ -457,7 +460,7 @@ def razorpay(request):
     order=data['order']
     items=data['items']
     # context={'items':items,'order':order,'cartItems':cartItems}
-    key_id=settings.RAZOR_KEY_ID
+    key_id=RAZOR_KEY_ID
 
     if request.method=='POST':
         name=request.user

@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from django.contrib import messages
-
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,8 +138,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# RAZOR_KEY_ID='rzp_test_vM6jfpgM6OM74q'
-# RAZOR_KEY_SECRET='nZt5CDVAlMYbxq9hLJmOCsw2'
+#Razorpay keys
 RAZOR_KEY_ID=os.environ.get("RAZOR_KEY_ID")
 RAZOR_KEY_SECRET=os.environ.get("RAZOR_KEY_SECRET")
